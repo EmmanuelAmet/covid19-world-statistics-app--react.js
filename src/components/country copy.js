@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 
-const url = 'https://hostel-api-ucc.herokuapp.com/v2/master/hostels'
+const url = 'https://corona.lmao.ninja/v2/countries'
 
 console.log(url)
 const CountryFetchData = () => {
@@ -12,7 +12,6 @@ const CountryFetchData = () => {
     const response = await fetch(url)
     if (response.status >= 200 && response.status <= 299) {
       const countries = await response.json()
-      console.log('Data:::::'+countries)
       setIsLoading(false)
       setIsError(false)
       setCountries(countries)
@@ -43,13 +42,16 @@ const CountryFetchData = () => {
       <a className="btn" href="https://www.linkedin.com/in/emmanuel-ametepee-052264175/">Developed By: Emmanuel Ametepee</a>
       <ul className='users'>
         {countries.map((myCountry) => {
-          const { name, location, _id, imageUrl } = myCountry
+          const { country, cases, active, population, deaths, countryInfo: _id } = myCountry
           return (
-            <li key={_id}>
-              <img src={imageUrl} alt={name} />
+            <li key={myCountry.countryInfo._id}>
+              <img src={myCountry.countryInfo.flag} alt={country} />
               <div>
-                <h4>{name}</h4>
-                <h5>Location: {location}</h5>
+                <h4>{country}</h4>
+                <h5>Cases: {cases}</h5>
+                <h5>Deaths: {deaths}</h5>
+                <h5>Active: {active}</h5>
+                <h5>Population: {population}</h5>
               </div>
             </li>
           )
